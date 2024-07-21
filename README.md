@@ -8,19 +8,7 @@ HandCash SDK is a server-side Node.js SDK designed for secure interaction with H
 ## Documentation
 
 - [Getting started](#getting-started)
-- [HandCash Connect](#handcash-connect)
-    - [Understanding permissions](#understanding-permissions)
-    - [Creating User Accounts](#creating-user-accounts)
-    - [Accessing Existing User Accounts](#accessing-existing-user-accounts)
-    - [Get user profile](#get-user-profile)
-    - [Get user inventory](#get-user-inventory)
-    - [Transfer money](#transfer-money)
-    - [Transfer items](#transfer-items)
-- [HandCash Items](#handcash-items)
-    - [Create a collection](#create-a-collection)
-    - [Create items](#create-items)
-    - [Item actions](#item-actions)
-- [Learn more](#learn-more)
+- [Wallet-as-a-service](#Wallet-as-a-service)
 
 ## Getting started
 
