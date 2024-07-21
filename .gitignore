@@ -1,0 +1,11 @@
+node_modules/
+.idea
+.vscode
+.env
+.env.dev
+.DS_Store
+coverage/
+.runcache/
+.nyc_output/
+dist/
+yarn.lock
