@@ -4,11 +4,4 @@ import Environments from './environments';
 import Crypto from './crypto';
 import * as Types from './types/index';
 
-
-export {
-    WalletService,
-    HandCashApiError,
-    Environments,
-    Types,
-    Crypto,
-};
+export { WalletService, HandCashApiError, Environments, Types, Crypto };
