@@ -75,9 +75,16 @@ export type PaymentResult = {
 	note: string;
 	time: number;
 	type: PaymentDirection;
-	fiatCurrencyCode: DenominationCurrencyCode;
+	units: number;
+	fiatEquivalent: {
+		units: number;
+		currencyCode: DenominationCurrencyCode;
+	};
+	currency: {
+		code: InstrumentCurrencyCode;
+		logoUrl: string;
+	};
 	participants: TransactionParticipant[];
-	attachments: Attachment[];
 };
 
 export type PaymentParameters = {
