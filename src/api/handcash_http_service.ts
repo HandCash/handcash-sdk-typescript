@@ -136,32 +136,37 @@ export default class HandCashHttpService {
 	}
 
 	async getTotalBalance() {
-		const requestParameters = this.getRequest('GET', '/v1/connect/wallet/balance');
-		return HandCashHttpService.handleRequest<UserBalance>(requestParameters, new Error().stack);
+		const requestParameters = this.getRequest('GET', '/v1/waas/wallet/balances');
+		return HandCashHttpService.handleRequest<Many<UserBalance>>(requestParameters, new Error().stack);
 	}
 
 	async getDepositInfo() {
-		const requestParameters = this.getRequest('GET', '/v1/connect/wallet/balance');
+		const requestParameters = this.getRequest('GET', '/v1/waas/wallet/depositInfo');
 		return HandCashHttpService.handleRequest<DepositInfo>(requestParameters, new Error().stack);
 	}
 
 	async pay(paymentParameters: PaymentParameters) {
-		const requestParameters = this.getRequest('POST', '/v1/connect/wallet/pay', paymentParameters);
+		const requestParameters = this.getRequest('POST', '/v1/waas/wallet/pay', paymentParameters);
 		return HandCashHttpService.handleRequest<PaymentResult>(requestParameters, new Error().stack);
 	}
 
 	async getPayment(transactionId: string) {
-		const requestParameters = this.getRequest('GET', '/v1/connect/wallet/payment', {}, { transactionId });
+		const requestParameters = this.getRequest('GET', '/v1/waas/wallet/transaction', {}, { transactionId });
 		return HandCashHttpService.handleRequest<PaymentResult>(requestParameters, new Error().stack);
 	}
 
 	async getPayments(filters: PaymentFilters) {
-		const requestParameters = this.getRequest('POST', '/v1/connect/wallet/payment', filters);
+		const queryParams: QueryParams = {
+			from: filters.from.toString(),
+			to: filters.to.toString(),
+		};
+
+		const requestParameters = this.getRequest('GET', '/v1/waas/wallet/transactions', {}, queryParams);
 		return HandCashHttpService.handleRequest<Many<PaymentResult>>(requestParameters, new Error().stack);
 	}
 
 	async getExchangeRate(currencyCode: DenominationCurrencyCode) {
-		const requestParameters = this.getRequest('GET', `/v1/connect/wallet/exchangeRate/${currencyCode}`);
+		const requestParameters = this.getRequest('GET', `/v1/waas/wallet/exchangeRate/${currencyCode}`);
 		return HandCashHttpService.handleRequest<ExchangeRate>(requestParameters, new Error().stack);
 	}
 

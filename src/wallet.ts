@@ -21,7 +21,7 @@ export default class Wallet {
 		return this.httpService.getDepositInfo();
 	}
 
-	async getTotalBalance(): Promise<UserBalance> {
+	async getTotalBalance(): Promise<Many<UserBalance>> {
 		return this.httpService.getTotalBalance();
 	}
 

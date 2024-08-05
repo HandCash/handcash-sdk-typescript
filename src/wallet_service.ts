@@ -1,7 +1,7 @@
 import Account from './account';
 import Environments from './environments';
 import HandCashHttpService from './api/handcash_http_service';
-import { Environment } from './types';
+import { Environment, DepositInfo } from './types';
 
 type Params = {
 	appId: string;
@@ -65,5 +65,9 @@ export default class WalletService {
 			baseEndpointHandCash: this.env.baseEndpointHandCash,
 			baseEndpointTrustholder: this.env.baseEndpointTrustholder,
 		});
+	}
+
+	getDepositInfo(): Promise<DepositInfo> {
+		return this.httpService.getDepositInfo();
 	}
 }
