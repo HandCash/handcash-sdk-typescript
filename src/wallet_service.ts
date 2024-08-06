@@ -1,7 +1,7 @@
 import Account from './account';
 import Environments from './environments';
 import HandCashHttpService from './api/handcash_http_service';
-import { Environment, DepositInfo } from './types';
+import { Environment, DepositInfo, VerificationComplete } from './types';
 
 type Params = {
 	appId: string;
@@ -38,7 +38,11 @@ export default class WalletService {
 		return this.httpService.requestEmailCode(email, customEmailParameters);
 	}
 
-	verifyEmailCode(requestId: string, verificationCode: string, accessPublicKey: string): Promise<void> {
+	verifyEmailCode(
+		requestId: string,
+		verificationCode: string,
+		accessPublicKey: string
+	): Promise<VerificationComplete> {
 		return this.httpService.verifyEmailCode(requestId, verificationCode, accessPublicKey);
 	}
 
