@@ -12,6 +12,7 @@ import {
 	PaymentParameters,
 	PaymentResult,
 	RequestVerificationCode,
+	VerificationComplete,
 	UserBalance,
 } from '../types';
 import HandCashApiError from './handcash_api_error';
@@ -185,7 +186,7 @@ export default class HandCashHttpService {
 			verificationCode,
 			publicKey,
 		});
-		return HandCashHttpService.handleRequest<void>(requestParameters, new Error().stack);
+		return HandCashHttpService.handleRequest<VerificationComplete>(requestParameters, new Error().stack);
 	}
 
 	async createNewAccount(accessPublicKey: string, email: string, alias: string) {

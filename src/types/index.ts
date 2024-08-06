@@ -10,6 +10,10 @@ export type KeyPair = {
 
 export type RequestVerificationCode = { requestId: { requestId: string } };
 
+export type VerificationComplete = {
+	newUser: boolean;
+};
+
 export type Many<E> = {
 	items: E[];
 };
