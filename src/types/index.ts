@@ -11,7 +11,7 @@ export type KeyPair = {
 export type RequestVerificationCode = { requestId: { requestId: string } };
 
 export type VerificationComplete = {
-	newUser: boolean;
+	isNewUser: boolean;
 };
 
 export type Many<E> = {
