@@ -46,8 +46,8 @@ export default class WalletService {
 		return this.httpService.verifyEmailCode(requestId, verificationCode, accessPublicKey);
 	}
 
-	async createWalletAccount(accessPublicKey: string, email: string, alias: string): Promise<void> {
-		await this.httpService.createNewAccount(accessPublicKey, email, alias);
+	async createWalletAccount(accessPublicKey: string, email: string, alias: string): Promise<DepositInfo> {
+		return this.httpService.createNewAccount(accessPublicKey, email, alias);
 	}
 
 	async isAliasAvailable(alias: string): Promise<boolean> {

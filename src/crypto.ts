@@ -10,4 +10,9 @@ export default class Crypto {
 			publicKey: Buffer.from(publicKey).toString('hex'),
 		};
 	};
+
+	static getPublicKeyFromPrivateKey = (privateKey: string): string => {
+		const publicKey = secp256k1.getPublicKey(Buffer.from(privateKey, 'hex'), true);
+		return Buffer.from(publicKey).toString('hex');
+	};
 }

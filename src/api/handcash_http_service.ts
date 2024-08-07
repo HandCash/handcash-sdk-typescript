@@ -195,7 +195,7 @@ export default class HandCashHttpService {
 			email,
 			alias,
 		});
-		return HandCashHttpService.handleRequest(requestParameters, new Error().stack);
+		return HandCashHttpService.handleRequest<DepositInfo>(requestParameters, new Error().stack);
 	}
 
 	async getAliasAvailability(alias: string) {
