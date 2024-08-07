@@ -19,11 +19,11 @@ Our SDK provides a simple way create wallets, get balances, make payments, and m
 ## Create a new non-custodial wallet
 
 ```typescript
-import {WalletService, Crypto} from '@handcash/sdk';
+import { WalletService, Crypto } from '@handcash/sdk';
 
 const walletService = new WalletService({
-    appId: '<YOUR-APP-ID>',
-    appSecret: '<YOUR-APP-SECRET>',
+	appId: '<YOUR-APP-ID>',
+	appSecret: '<YOUR-APP-SECRET>',
 });
 
 // Request email verification code
@@ -47,11 +47,11 @@ const account = walletService.getWalletAccountFromAuthToken(keyPair.privateKey);
 ## Get access to an existing wallet
 
 ```typescript
-import {WalletService, Crypto} from '@handcash/sdk';
+import { WalletService, Crypto } from '@handcash/sdk';
 
 const walletService = new WalletService({
-    appId: '<YOUR-APP-ID>',
-    appSecret: '<YOUR-APP-SECRET>',
+	appId: '<YOUR-APP-ID>',
+	appSecret: '<YOUR-APP-SECRET>',
 });
 
 // Request email verification code
@@ -129,11 +129,11 @@ const account = walletService.getWalletAccountFromAuthToken(keyPair.privateKey);
 const accountInfo = await account.getInfo();
 
 const paymentParameters = {
-    description: "Sending to myself",
-    payments: [
-        {destination: accountInfo.paymail, currencyCode: 'USD', sendAmount: 0.01},
-        // You can add multiple destinations
-    ]
+	description: 'Sending to myself',
+	payments: [
+		{ destination: accountInfo.paymail, currencyCode: 'USD', sendAmount: 0.01 },
+		// You can add multiple destinations
+	],
 };
 const paymentResult = await account.wallet.pay(paymentParameters);
 console.log(paymentResult);
@@ -154,7 +154,7 @@ console.log(paymentResult);
 ```typescript
 const account = walletService.getWalletAccountFromAuthToken(keyPair.privateKey);
 
-const payments = await account.wallet.getPaymentsHistory({from: 0, to: 5});
+const payments = await account.wallet.getPaymentsHistory({ from: 0, to: 5 });
 console.log(payments);
 ```
 
@@ -169,7 +169,7 @@ console.log(payments);
       "type": "receive",
       "time": 1716311894,
       "currencyCode": "BSV",
-      "currencyUnits": 0.01540000,
+      "currencyUnits": 0.0154,
       "fiatEquivalent": {
         "currencyCode": "USD",
         "units": 1.0826816

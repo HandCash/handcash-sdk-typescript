@@ -18,7 +18,6 @@ This SDK requires an `appId` to represent your application and an `appSecret` to
 under your control.
 
 > Don't have an app yet? Sign-up for [dashboard.handcash.io](https://dashboard.handcash.io) and create your first app.
->
 
 ### Installation
 
