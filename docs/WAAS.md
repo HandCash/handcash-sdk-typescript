@@ -1,6 +1,7 @@
 # Wallet-as-a-service
 
-WaaS is a service that allows you to create and manage non-custodial wallets for your users. These wallets are protected by MPC and only users can authorize delegated access upon email verification.
+WaaS is a service that allows you to create and manage non-custodial wallets for your users. These wallets are protected
+by MPC and only users can authorize delegated access upon email verification.
 
 Our SDK provides a simple way create wallets, get balances, make payments, and more.
 
@@ -79,19 +80,19 @@ console.log(accountInfo);
 
 ```json
 {
-	"id": "63b4cdab6d9bbb40a077c31d",
-	"paymail": "jack@lamint.io",
-	"alias": "jack",
-	"base58Address": "16HcSyxRkCDS9omL6kLxrPkM7q9KZm9apA",
-	"createdAt": "2024-07-12T16:02:34.171Z"
+  "id": "63b4cdab6d9bbb40a077c31d",
+  "paymail": "jack@lamint.io",
+  "alias": "jack",
+  "base58Address": "16HcSyxRkCDS9omL6kLxrPkM7q9KZm9apA",
+  "createdAt": "2024-07-12T16:02:34.171Z"
 }
 ```
 
 You can use the follow deposit methods:
 
--  `id` or `alias` to send from other wallets using our SDK.
--  `paymail` to send P2P from other BSV wallets who support this protocol.
--  `base58Address` to send from any BSV wallet or exchange.
+- `id` or `alias` to send from other wallets using our SDK.
+- `paymail` to send P2P from other BSV wallets who support this protocol.
+- `base58Address` to send from any BSV wallet or exchange.
 
 ## Get wallet balance
 
@@ -104,20 +105,20 @@ console.log(balance);
 
 ```json
 {
-	"items": [
-		{
-			"currency": {
-				"code": "BSV",
-				"logoUrl": "https://res.cloudinary.com/hn8pdtayf/image/upload/v1721318886/54b1047685c48c267bc7b8183af42954.jpg",
-				"symbol": ""
-			},
-			"units": 0.20801351,
-			"fiatEquivalent": {
-				"currencyCode": "USD",
-				"units": 9.18837276372
-			}
-		}
-	]
+  "items": [
+    {
+      "currency": {
+        "code": "BSV",
+        "logoUrl": "https://res.cloudinary.com/hn8pdtayf/image/upload/v1721318886/54b1047685c48c267bc7b8183af42954.jpg",
+        "symbol": ""
+      },
+      "units": 0.20801351,
+      "fiatEquivalent": {
+        "currencyCode": "USD",
+        "units": 9.18837276372
+      }
+    }
+  ]
 }
 ```
 
@@ -140,11 +141,11 @@ console.log(paymentResult);
 
 ```json
 {
-	"id": "63b4cdab6d9bbb40a077c31d",
-	"paymail": "jack@lamint.io",
-	"alias": "jack",
-	"base58Address": "16HcSyxRkCDS9omL6kLxrPkM7q9KZm9apA",
-	"createdAt": "2024-07-12T16:02:34.171Z"
+  "id": "63b4cdab6d9bbb40a077c31d",
+  "paymail": "jack@lamint.io",
+  "alias": "jack",
+  "base58Address": "16HcSyxRkCDS9omL6kLxrPkM7q9KZm9apA",
+  "createdAt": "2024-07-12T16:02:34.171Z"
 }
 ```
 
@@ -159,31 +160,31 @@ console.log(payments);
 
 ```json
 {
-	"from": 0,
-	"to": 5,
-	"items": [
-		{
-			"transactionId": "917674cbea0f14bbe24c1a9a6f967763a499c4a3a9f20e9bbc1bad8a152a5357",
-			"note": "External deposit",
-			"type": "receive",
-			"time": 1716311894,
-			"currencyCode": "BSV",
-			"currencyUnits": 0.0154,
-			"fiatEquivalent": {
-				"currencyCode": "USD",
-				"units": 1.0826816
-			},
-			"participants": [
-				{
-					"type": "user",
-					"id": "641f16f0365bc7609e582352",
-					"alias": "rjseibane",
-					"profilePictureUrl": "https://cloud.handcash.io/v2/users/profilePicture/rjseibane",
-					"tags": []
-				}
-			]
-		}
-		// More payments here
-	]
+  "from": 0,
+  "to": 5,
+  "items": [
+    {
+      "transactionId": "917674cbea0f14bbe24c1a9a6f967763a499c4a3a9f20e9bbc1bad8a152a5357",
+      "note": "External deposit",
+      "type": "receive",
+      "time": 1716311894,
+      "currencyCode": "BSV",
+      "currencyUnits": 0.0154,
+      "fiatEquivalent": {
+        "currencyCode": "USD",
+        "units": 1.0826816
+      },
+      "participants": [
+        {
+          "type": "user",
+          "id": "641f16f0365bc7609e582352",
+          "alias": "rjseibane",
+          "profilePictureUrl": "https://cloud.handcash.io/v2/users/profilePicture/rjseibane",
+          "tags": []
+        }
+      ]
+    }
+    // More payments here
+  ]
 }
 ```
