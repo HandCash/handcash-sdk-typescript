@@ -89,9 +89,9 @@ console.log(accountInfo);
 
 You can use the follow deposit methods:
 
--   `id` or `alias` to send from other wallets using our SDK.
--   `paymail` to send P2P from other BSV wallets who support this protocol.
--   `base58Address` to send from any BSV wallet or exchange.
+-  `id` or `alias` to send from other wallets using our SDK.
+-  `paymail` to send P2P from other BSV wallets who support this protocol.
+-  `base58Address` to send from any BSV wallet or exchange.
 
 ## Get wallet balance
 

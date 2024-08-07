@@ -2,13 +2,13 @@ HandCash SDK is a server-side Node.js SDK designed for secure interaction with H
 
 ## Requirements
 
--   Node `v16.X` or higher
--   Only for NodeJS, i.e. it doesn't work on the browser side as it's a server-side library for security reasons.
+-  Node `v16.X` or higher
+-  Only for NodeJS, i.e. it doesn't work on the browser side as it's a server-side library for security reasons.
 
 ## Documentation
 
--   [Getting started](#getting-started)
--   [Wallet-as-a-service](#Wallet-as-a-service)
+-  [Getting started](#getting-started)
+-  [Wallet-as-a-service](#Wallet-as-a-service)
 
 ## Getting started
 
