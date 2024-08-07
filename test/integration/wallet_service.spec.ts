@@ -25,7 +25,7 @@ describe('# Wallet - Integration Tests', () => {
 		const keyPair = Crypto.generateAuthenticationKeyPair();
 
 		await walletService.verifyEmailCode(requestId, verificationCode, keyPair.publicKey);
-		await walletService.createWalletAccount(keyPair.publicKey, nonExistingAccountEmail, handle);
+		await walletService.createWalletAccount(keyPair.publicKey, nonExistingAccountEmail, handle!);
 
 		const account = walletService.getWalletAccountFromAuthToken(keyPair.privateKey);
 		const depositInfo = await account.wallet.getDepositInfo();
