@@ -70,8 +70,4 @@ export default class WalletService {
 			baseEndpointTrustholder: this.env.baseEndpointTrustholder,
 		});
 	}
-
-	getDepositInfo(): Promise<DepositInfo> {
-		return this.httpService.getDepositInfo();
-	}
 }
