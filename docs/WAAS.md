@@ -35,6 +35,8 @@ const keyPair = Crypto.generateAuthenticationKeyPair();
 await walletService.verifyEmailCode(requestId, verificationCode, keyPair.publicKey);
 
 // Create new wallet
+const isAvailableHandle = await walletService.isAliasAvailable(handle);
+if(!isAvailableHandle) throw new Error('handle is not available');
 await walletService.createWalletAccount(keyPair.publicKey, email, handle);
 
 // Store the authentication key in a secure place so the user can access the wallet later
