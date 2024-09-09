@@ -1,21 +1,21 @@
 {
 	"name": "@handcash/handcash-sdk",
-	"version": "0.0.2-alpha.0",
+	"version": "0.0.2-alpha.4",
 	"description": "HandCash SDK",
 	"type": "module",
+	"types": "./dist/src/index.d.ts",
 	"exports": {
-		".": {
-			"import": {
-				"types": "./dist/types/index.d.ts",
-				"default": "./dist/index.esm.js"
-			},
-			"require": {
-				"types": "./dist/types/index.d.ts",
-				"default": "./dist/index.cjs"
-			}
+	  ".": {
+		"import": {
+		  "types": "./dist/types/src/index.d.ts",
+		  "default": "./dist/index.esm.js"
+		},
+		"require": {
+		  "types": "./dist/types/src/index.d.ts",
+		  "default": "./dist/index.cjs"
 		}
+	  }
 	},
-	"types": "./dist/types/index.d.ts",
 	"main": "dist/index.cjs",
 	"files": [
 		"dist/"
