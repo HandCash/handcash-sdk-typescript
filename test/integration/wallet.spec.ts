@@ -19,7 +19,7 @@ describe('# Wallet - Integration Tests', () => {
 	it('should pay to multiple people using handles and paymails', async () => {
 		const paymentParameters: PaymentParameters = {
 			note: 'Testing Connect SDK',
-			instrumentCode: 'BSV',
+			currencyCode: 'BSV',
 			denominatedIn: 'USD',
 			receivers: [
 				{
