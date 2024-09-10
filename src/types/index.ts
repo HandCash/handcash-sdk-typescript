@@ -93,7 +93,7 @@ export type PaymentResult = {
 
 export type PaymentParameters = {
 	note?: string;
-	instrumentCode: InstrumentCurrencyCode;
+	currencyCode: InstrumentCurrencyCode;
 	denominatedIn?: DenominationCurrencyCode;
 	receivers: PaymentReceiverItem[];
 	attachment?: Attachment;
