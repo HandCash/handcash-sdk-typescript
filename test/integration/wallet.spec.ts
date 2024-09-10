@@ -43,7 +43,7 @@ describe('# Wallet - Integration Tests', () => {
 		const paymentParameters: PaymentParameters = {
 			note: 'Testing Connect SDK',
 			denominatedIn: 'USD',
-			instrumentCode: 'BSV',
+			currencyCode: 'BSV',
 			receivers: [
 				{
 					to: '',
