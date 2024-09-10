@@ -23,11 +23,11 @@ describe('# Wallet - Integration Tests', () => {
 			denominatedIn: 'USD',
 			receivers: [
 				{
-					to: 'rjseibane',
+					destination: 'rjseibane',
 					amount: 0.0001,
 				},
 				{
-					to: 'rafa@internal.handcash.io',
+					destination: 'rafa@internal.handcash.io',
 					amount: 0.0001,
 				},
 			],
@@ -46,7 +46,7 @@ describe('# Wallet - Integration Tests', () => {
 			currencyCode: 'BSV',
 			receivers: [
 				{
-					to: '',
+					destination: '',
 					amount: 0.0001,
 				},
 			],

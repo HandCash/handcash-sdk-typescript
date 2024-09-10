@@ -48,7 +48,7 @@ export type DenominationCurrencyCode =
 	| 'ZAR';
 
 export type PaymentReceiverItem = {
-	to: string;
+	destination: string;
 	amount: number;
 	tags?: [];
 };

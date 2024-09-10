@@ -1,6 +1,6 @@
 {
 	"name": "@handcash/handcash-sdk",
-	"version": "0.0.2-alpha.5",
+	"version": "0.0.2-alpha.6",
 	"description": "HandCash SDK",
 	"type": "module",
 	"types": "./dist/src/index.d.ts",
