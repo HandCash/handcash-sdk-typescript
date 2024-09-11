@@ -25,6 +25,6 @@ under your control.
 
 ## Wallet-as-a-service
 
-WaaS is a service that allows you to create and manage non-custodial wallets.
+WaaS allows you to create and manage non-custodial wallets.
 
 Check out the [WaaS documentation](docs/WAAS.md) for more information.

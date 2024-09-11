@@ -133,7 +133,7 @@ const accountInfo = await account.getInfo();
 const paymentParameters = {
 	description: 'Sending to myself',
 	payments: [
-		{ destination: accountInfo.paymail, currencyCode: 'USD', sendAmount: 0.01 },
+		{ destination: accountInfo.paymail, currencyCode: 'BSV', denominatedIn: 'USD', sendAmount: 0.01 },
 		// You can add multiple destinations
 	],
 };
@@ -143,11 +143,34 @@ console.log(paymentResult);
 
 ```json
 {
-  "id": "63b4cdab6d9bbb40a077c31d",
-  "paymail": "jack@lamint.io",
-  "alias": "jack",
-  "base58Address": "16HcSyxRkCDS9omL6kLxrPkM7q9KZm9apA",
-  "createdAt": "2024-07-12T16:02:34.171Z"
+    "transactionId": "c6df6b9ea763ace4dccc94d244717c07295c3c52bd54ea9d1a66e21eede852b5",
+    "note": "",
+    "type": "send",
+    "time": 1726070984,
+    "units": 0.00019879,
+    "satoshiFees": 0,
+    "fiatEquivalent": {
+        "currencyCode": "USD",
+        "units": 0.009999812886000001
+    },
+    "currency": {
+        "code": "BSV",
+        "logoUrl": "",
+        "symbol": "BSV"
+    },
+    "participants": [
+        {
+            "type": "user",
+            "id": "612cba70e108780b4f6817ad",
+            "alias": "rafa",
+            "displayName": "Rafa Jimenez",
+            "profilePictureUrl": "https://res.cloudinary.com/handcash-iae/image/upload/v1712916589/ccfdc5631f145c1ceb4a305754812d3f.jpg",
+            "avatarMetadata": {},
+            "responseNote": "",
+            "tags": []
+        }
+    ],
+    "attachments": [],
 }
 ```
 
@@ -190,3 +213,27 @@ console.log(payments);
   ]
 }
 ```
+
+
+### Configure Paymail Domain (optional)
+To have wallet addressable by `alias@<yourdomain.com>` from other wallets in the BSV ecosystem you can configure a custom paymail domain for your users wallets
+
+#### Step 1: Add SRV Record
+
+Add an SRV record to your domain's DNS settings with the following details:
+
+- **Type:** SRV Record
+- **Name:** _bsvalias._tcp
+- **Value:** 10 10 443 cloud.handcash.io
+
+#### Step 2: Enable DNSSEC
+
+Enable DNSSEC for your domain. This is typically done through your domain registrar or DNS provider's settings.
+
+#### Step 3: Update Paymail Domain
+
+1. Go to the HandCash developer dashboard: https://dashboard.handcash.io/
+2. Update your Paymail domain settings in the dashboard
+
+After completing these steps, your domain should be properly configured for Paymail use with HandCash Wallet as a Service.
+
