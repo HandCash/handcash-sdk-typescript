@@ -237,3 +237,6 @@ Enable DNSSEC for your domain. This is typically done through your domain regist
 
 After completing these steps, your domain should be properly configured for Paymail use with HandCash Wallet as a Service.
 
+Example using NameCheap.com
+
+![Alt text for the image](./namecheap_DNS_example.png)
