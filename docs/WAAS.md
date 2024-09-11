@@ -239,4 +239,4 @@ After completing these steps, your domain should be properly configured for Paym
 
 Example using NameCheap.com
 
-![Alt text for the image](./namecheap_DNS_example.png)
+![Namecheap.com example](./namecheap_DNS_example.png)
