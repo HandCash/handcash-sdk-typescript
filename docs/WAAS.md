@@ -11,6 +11,7 @@ Our SDK provides a simple way create wallets, get balances, make payments, and m
 
 1. Create and account in the developer [dashboard](https://dashboard.handcash.io) or sign in.
 2. Create or select an application. Copy your `appId` and `appSecret`.
+3. Reach out to sales@handcash.io to enable this feature for your application
 
 ### Install the HandCash SDK
 
