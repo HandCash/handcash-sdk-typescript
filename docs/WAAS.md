@@ -21,6 +21,7 @@ Our SDK provides a simple way create wallets, get balances, make payments, and m
 ```typescript
 import { WalletService, Crypto } from '@handcash/sdk';
 
+
 const walletService = new WalletService({
 	appId: '<YOUR-APP-ID>',
 	appSecret: '<YOUR-APP-SECRET>',
@@ -240,3 +241,44 @@ After completing these steps, your domain should be properly configured for Paym
 Example using NameCheap.com
 
 ![Namecheap.com example](./namecheap_DNS_example.png)
+
+
+### Configure Custom Verification Email (optional)
+
+To use a custom email template, you can pass an options object as the second argument to the `requestSignUpEmailCode` function. The options object should contain an `html` property with your custom HTML string.
+
+**Key Points:**
+1. Pass `{ html: string }` as the second argument to `requestSignUpEmailCode`.
+2. In your HTML string, use the literal `{code}` where you want the verification code to appear.
+3. The verification server will automatically replace `{code}` with the actual verification code.
+
+Here's an example:
+
+```typescript
+
+const customHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome My Application</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .code { font-size: 24px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Welcome My Application!</h1>
+  <p>Your verification code is: <span class="code">{code}</span></p>
+  <p>Enter this code to complete your registration. It will expire in 15 minutes</p>
+</body>
+</html>
+`;
+
+export async function requestSignUpEmailCode(email: string, html: string) {
+    return walletService.requestSignUpEmailCode(email, { html });
+}
+```
+
+In this example, {code} will be replaced with the actual verification code by the server.
