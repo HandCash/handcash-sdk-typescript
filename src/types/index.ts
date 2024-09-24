@@ -102,6 +102,11 @@ export type PaymentParameters = {
 export type PaymentFilters = {
 	from: number;
 	to: number;
+	type?: 'send' | 'receive';
+	fromDate?: string;
+	toDate?: string;
+	participant?: string;
+	tag?: string;
 };
 
 export type DepositInfo = {

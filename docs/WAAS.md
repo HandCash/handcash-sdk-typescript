@@ -130,14 +130,16 @@ console.log(balance);
 
 ```typescript
 const account = walletService.getWalletAccountFromAuthToken(keyPair.privateKey);
-const accountInfo = await account.getInfo();
+const accountInfo = await account.getDepositInfo();
 
 const paymentParameters = {
-	description: 'Sending to myself',
-	payments: [
-		{ destination: accountInfo.paymail, currencyCode: 'BSV', denominatedIn: 'USD', sendAmount: 0.01 },
-		// You can add multiple destinations
-	],
+  note: 'Sending to myself',
+  currencyCode: 'BSV',
+  denominatedIn: 'USD',
+  receivers: [
+    { destination: depositInfo.paymail, amount: 0.01 },
+    // You can add multiple receivers
+  ]
 };
 const paymentResult = await account.wallet.pay(paymentParameters);
 console.log(paymentResult);
@@ -181,7 +183,7 @@ console.log(paymentResult);
 ```typescript
 const account = walletService.getWalletAccountFromAuthToken(keyPair.privateKey);
 
-const payments = await account.wallet.getPaymentsHistory({ from: 0, to: 5 });
+const payments = await account.wallet.getPaymentHistory({ from: 0, to: 5 });
 console.log(payments);
 ```
 
