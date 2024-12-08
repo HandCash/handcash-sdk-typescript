@@ -1,4 +1,5 @@
 import Account from './account';
+import AdminAccount from './admin_account';
 import Environments from './environments';
 import HandCashHttpService from './api/handcash_http_service';
 import { Environment, DepositInfo, VerificationComplete } from './types';
@@ -63,6 +64,16 @@ export default class WalletService {
 
 	getWalletAccountFromAuthToken(authToken: string): Account {
 		return Account.fromAuthToken({
+			authToken,
+			appSecret: this.appSecret,
+			appId: this.appId,
+			baseEndpointHandCash: this.env.baseEndpointHandCash,
+			baseEndpointTrustholder: this.env.baseEndpointTrustholder,
+		});
+	}
+
+	getAdminAccountFromAuthToken(authToken: string): AdminAccount {
+		return AdminAccount.fromAuthToken({
 			authToken,
 			appSecret: this.appSecret,
 			appId: this.appId,

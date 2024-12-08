@@ -222,7 +222,6 @@ export type CreateCollectionMetadata = {
 	name: string;
 	description?: string;
 	mediaDetails: MediaDetails;
-	totalQuantity: number;
 };
 
 export type ItemCreationOrderType = 'collectionItem' | 'collection';

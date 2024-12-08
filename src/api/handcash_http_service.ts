@@ -17,7 +17,6 @@ import {
 	GetItemsFilter,
 	TransferItemParameters,
 	NewBurnAndCreateItemsOrder,
-	CreateItemsOrderParams,
 	CreateCollectionMetadata,
 	CreateItemMetadata,
 	CreateItemsOrder,
