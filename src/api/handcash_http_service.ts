@@ -14,6 +14,16 @@ import {
 	RequestVerificationCode,
 	VerificationComplete,
 	UserBalance,
+	GetItemsFilter,
+	TransferItemParameters,
+	NewBurnAndCreateItemsOrder,
+	CreateItemsOrderParams,
+	CreateCollectionMetadata,
+	CreateItemMetadata,
+	CreateItemsOrder,
+	ItemCreationOrderType,
+	Item,
+	TransferItemResult,
 } from '../types';
 import HandCashApiError from './handcash_api_error';
 
@@ -204,6 +214,51 @@ export default class HandCashHttpService {
 			requestParameters,
 			new Error().stack
 		);
+	}
+
+	async getItemInventory(filter: GetItemsFilter) {
+		const requestParameters = this.getRequest('GET', '/v1/waas/items/inventory', filter);
+		return HandCashHttpService.handleRequest<Many<Item>>(requestParameters, new Error().stack);
+	}
+
+	async getItemListings(filter: GetItemsFilter) {
+		const requestParameters = this.getRequest('GET', '/v1/waas/items/listings', filter);
+		return HandCashHttpService.handleRequest<Many<Item>>(requestParameters, new Error().stack);
+	}
+
+	async transferItems(params: TransferItemParameters) {
+		const requestParameters = this.getRequest('POST', '/v1/waas/items/transfer', params);
+		return HandCashHttpService.handleRequest<TransferItemResult>(requestParameters, new Error().stack);
+	}
+
+	async getItemByOrigin(origin: string) {
+		const requestParameters = this.getRequest('GET', `/v1/waas/items/${origin}`);
+		return HandCashHttpService.handleRequest<Item>(requestParameters, new Error().stack);
+	}
+
+	async burnAndCreateItems(params: NewBurnAndCreateItemsOrder) {
+		const requestParameters = this.getRequest('POST', '/v1/waas/items/burnAndCreate', params);
+		return HandCashHttpService.handleRequest<CreateItemsOrder>(requestParameters, new Error().stack);
+	}
+
+	async getItemOrder(orderId: string) {
+		const requestParameters = this.getRequest('GET', `/v1/waas/items/orders/${orderId}`);
+		return HandCashHttpService.handleRequest<CreateItemsOrder>(requestParameters, new Error().stack);
+	}
+
+	async getOrderItems(orderId: string) {
+		const requestParameters = this.getRequest('GET', `/v1/waas/items/orders/${orderId}/items`);
+		return HandCashHttpService.handleRequest<Item[]>(requestParameters, new Error().stack);
+	}
+
+	async createItemsOrder(params: {
+		items: CreateItemMetadata[] | CreateCollectionMetadata[];
+		itemCreationOrderType: ItemCreationOrderType;
+		referencedCollection?: string;
+		uid?: string;
+	}): Promise<CreateItemsOrder> {
+		const requestParameters = this.getRequest('POST', '/v1/waas/items/orders/issueItems', params);
+		return HandCashHttpService.handleRequest<CreateItemsOrder>(requestParameters, new Error().stack);
 	}
 
 	static async handleRequest<T>(request: Request, stack: string | undefined) {

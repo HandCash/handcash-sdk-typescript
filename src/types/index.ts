@@ -134,3 +134,136 @@ export type UserBalance = {
 		units: number;
 	};
 };
+
+export type ItemAttributeMetadata = {
+	name: string;
+	value: string | number;
+	displayType: 'string' | 'number' | 'date' | 'boostPercentage' | 'boostNumber';
+};
+
+export type MediaDetails = {
+	image?: {
+		url: string;
+		contentType: string;
+		imageHighResUrl?: string;
+	};
+	multimedia?: {
+		url: string;
+		contentType: string;
+		imageHighResUrl?: string;
+	};
+};
+
+export type Royalty = {
+	type: string;
+	percentage: number;
+	destination: string;
+};
+
+export type Action = {
+	name: string;
+	description: string;
+	url: string;
+	enabled: boolean;
+};
+
+export type CreateItemMetadata = {
+	name: string;
+	user?: string;
+	description?: string;
+	rarity?: string;
+	quantity: number;
+	color?: string;
+	attributes: ItemAttributeMetadata[];
+	mediaDetails: MediaDetails;
+	origin?: string;
+	royalties?: Royalty[];
+	actions: Action[];
+	groupingValue?: string;
+	externalId?: string;
+};
+
+export type CreateItemsOrderParams = {
+	collectionId: string;
+	items: CreateItemMetadata[];
+	uid?: string;
+};
+
+export type NewBurnAndCreateItemsOrder = {
+	issue?: CreateItemsOrderParams;
+	burn: {
+		origins: string[];
+	};
+};
+
+export type GetItemsFilter = {
+	from?: number;
+	to?: number;
+	collectionId?: string;
+	searchString?: string;
+	groupingValue?: string;
+	fetchAttributes?: boolean;
+	sort?: 'name';
+	order?: 'asc' | 'desc';
+	attributes?: ItemAttributeMetadata[];
+	appId?: string;
+	group?: boolean;
+	externalId?: string;
+};
+
+export type TransferItemParameters = {
+	destinationsWithOrigins: {
+		destination: string;
+		origins: string[];
+	}[];
+};
+
+export type CreateCollectionMetadata = {
+	name: string;
+	description?: string;
+	mediaDetails: MediaDetails;
+	totalQuantity: number;
+};
+
+export type ItemCreationOrderType = 'collectionItem' | 'collection';
+
+export type CreateItemsOrder = {
+	id: string;
+	type: ItemCreationOrderType;
+	status: 'preparing' | 'pendingPayment' | 'pendingInscriptions' | 'completed';
+	collectionOrdinalId?: string;
+	items: CreateItemMetadata[] | CreateCollectionMetadata[];
+	payment?: {
+		paymentRequestId: string;
+		paymentRequestUrl: string;
+		amountInUSD: number;
+		transactionId: string;
+		isConfirmed: boolean;
+	};
+	pendingInscriptions?: number;
+	error?: string;
+	uid?: string;
+};
+
+export type Item = {
+	id: string;
+	name: string;
+	description?: string;
+	rarity?: string;
+	quantity: number;
+	color?: string;
+	attributes: ItemAttributeMetadata[];
+	mediaDetails: MediaDetails;
+	origin: string;
+	royalties?: Royalty[];
+	actions: Action[];
+	groupingValue?: string;
+	externalId?: string;
+	collectionId?: string;
+};
+
+export type TransferItemResult = {
+	id: string;
+	status: 'pending' | 'completed' | 'failed';
+	error?: string;
+};

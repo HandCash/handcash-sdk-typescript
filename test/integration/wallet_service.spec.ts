@@ -15,7 +15,6 @@ describe('# Wallet - Integration Tests', () => {
 	it.skip('should create a new account', async () => {
 		const requestId = await walletService.requestSignUpEmailCode(nonExistingAccountEmail);
 		expect(requestId).toBeTypeOf('string');
-		console.log('requestId: ', requestId);
 	});
 
 	it.skip('should verify email code for a non-existing account and create it', async () => {
@@ -35,7 +34,6 @@ describe('# Wallet - Integration Tests', () => {
 	it.skip('should request sign-in code for an existing account', async () => {
 		const requestId = await walletService.requestSignUpEmailCode(existingAccountEmail);
 		expect(requestId).toBeTypeOf('string');
-		console.log('requestId: ', requestId);
 	});
 
 	it.skip('should verify email code for an existing account', async () => {
