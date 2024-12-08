@@ -216,7 +216,7 @@ export default class HandCashHttpService {
 	}
 
 	async getItemInventory(filter: GetItemsFilter) {
-		const requestParameters = this.getRequest('GET', '/v1/waas/items/inventory', filter);
+		const requestParameters = this.getRequest('POST', '/v1/waas/items/inventory', filter);
 		return HandCashHttpService.handleRequest<Many<Item>>(requestParameters, new Error().stack);
 	}
 
