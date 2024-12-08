@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { authToken, handcashAppId, handcashAppSecret } from '../env';
 import environments from '../../src/environments';
 import HandCashHttpService from '../../src/api/handcash_http_service';
-import Admin from '../../src/items_admin';
+import Admin from '../../src/admin';
 import { CreateCollectionMetadata, CreateItemMetadata, CreateItemsOrder } from '../../src/types';
 
 const sleep = (ms: number): Promise<void> =>

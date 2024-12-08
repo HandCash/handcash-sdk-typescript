@@ -1,10 +1,11 @@
 import HandCashHttpService from './api/handcash_http_service';
 import { CreateItemsOrderParams, CreateCollectionMetadata, CreateItemsOrder } from './types';
-import Items from './items';
 
-export default class ItemsAdmin extends Items {
+export default class Admin {
+	httpService: HandCashHttpService;
+
 	constructor(handCashService: HandCashHttpService) {
-		super(handCashService);
+		this.httpService = handCashService;
 	}
 
 	/**

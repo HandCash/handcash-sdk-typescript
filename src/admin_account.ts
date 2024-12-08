@@ -1,6 +1,6 @@
 import Wallet from './wallet';
 import Items from './items';
-import ItemsAdmin from './items_admin';
+import Admin from './admin';
 import Account from './account';
 import HandCashHttpService from './api/handcash_http_service';
 
@@ -13,9 +13,9 @@ type AdminAuthParams = {
 };
 
 export class AdminAccount extends Account {
-	readonly admin: ItemsAdmin;
+	readonly admin: Admin;
 
-	constructor({ wallet, items, admin }: { wallet: Wallet; items: Items; admin: ItemsAdmin }) {
+	constructor({ wallet, items, admin }: { wallet: Wallet; items: Items; admin: Admin }) {
 		super({ wallet, items });
 		this.admin = admin;
 	}
@@ -38,7 +38,7 @@ export class AdminAccount extends Account {
 		return new AdminAccount({
 			wallet: new Wallet(httpService),
 			items: new Items(httpService),
-			admin: new ItemsAdmin(httpService),
+			admin: new Admin(httpService),
 		});
 	}
 }
