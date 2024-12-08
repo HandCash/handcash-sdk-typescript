@@ -231,22 +231,22 @@ export default class HandCashHttpService {
 	}
 
 	async getItemByOrigin(origin: string) {
-		const requestParameters = this.getRequest('GET', `/v1/waas/items/${origin}`);
+		const requestParameters = this.getRequest('GET', `/v1/waas/itemCreation/${origin}`);
 		return HandCashHttpService.handleRequest<Item>(requestParameters, new Error().stack);
 	}
 
 	async burnAndCreateItems(params: NewBurnAndCreateItemsOrder) {
-		const requestParameters = this.getRequest('POST', '/v1/waas/items/burnAndCreate', params);
+		const requestParameters = this.getRequest('POST', '/v1/waas/itemCreation/burnAndCreate', params);
 		return HandCashHttpService.handleRequest<CreateItemsOrder>(requestParameters, new Error().stack);
 	}
 
 	async getItemOrder(orderId: string) {
-		const requestParameters = this.getRequest('GET', `/v1/waas/items/orders/${orderId}`);
+		const requestParameters = this.getRequest('GET', `/v1/waas/itemCreation/${orderId}`);
 		return HandCashHttpService.handleRequest<CreateItemsOrder>(requestParameters, new Error().stack);
 	}
 
 	async getOrderItems(orderId: string) {
-		const requestParameters = this.getRequest('GET', `/v1/waas/items/orders/${orderId}/items`);
+		const requestParameters = this.getRequest('GET', `/v1/waas/itemCreation/${orderId}/items`);
 		return HandCashHttpService.handleRequest<Item[]>(requestParameters, new Error().stack);
 	}
 
@@ -256,7 +256,7 @@ export default class HandCashHttpService {
 		referencedCollection?: string;
 		uid?: string;
 	}): Promise<CreateItemsOrder> {
-		const requestParameters = this.getRequest('POST', '/v1/waas/items/orders/issueItems', params);
+		const requestParameters = this.getRequest('POST', '/v1/waas/itemCreation/issueItems', params);
 		return HandCashHttpService.handleRequest<CreateItemsOrder>(requestParameters, new Error().stack);
 	}
 

@@ -172,13 +172,13 @@ export type CreateItemMetadata = {
 	user?: string;
 	description?: string;
 	rarity?: string;
-	quantity: number;
+	quantity?: number;
 	color?: string;
 	attributes: ItemAttributeMetadata[];
 	mediaDetails: MediaDetails;
 	origin?: string;
 	royalties?: Royalty[];
-	actions: Action[];
+	actions?: Action[];
 	groupingValue?: string;
 	externalId?: string;
 };
@@ -255,7 +255,7 @@ export type Item = {
 	mediaDetails: MediaDetails;
 	origin: string;
 	royalties?: Royalty[];
-	actions: Action[];
+	actions?: Action[];
 	groupingValue?: string;
 	externalId?: string;
 	collectionId?: string;
