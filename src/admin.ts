@@ -1,5 +1,5 @@
 import HandCashHttpService from './api/handcash_http_service';
-import { CreateItemsOrderParams, CreateCollectionMetadata, CreateItemsOrder } from './types';
+import { CreateItemsParams, CreateCollectionMetadata } from './types';
 
 export default class Admin {
 	httpService: HandCashHttpService;
@@ -32,7 +32,7 @@ export default class Admin {
 	/**
 	 * Create and issue items order for a collection
 	 */
-	async createCollectionOrder(collectionMetadata: CreateCollectionMetadata): Promise<CreateItemsOrder> {
+	async createCollectionOrder(collectionMetadata: CreateCollectionMetadata) {
 		return this.httpService.createItemsOrder({
 			items: [collectionMetadata],
 			itemCreationOrderType: 'collection',
@@ -42,11 +42,11 @@ export default class Admin {
 	/**
 	 * Create and issue items order for items in a collection
 	 */
-	async createItemsOrder(params: CreateItemsOrderParams): Promise<CreateItemsOrder> {
+	async createItemsOrder(params: CreateItemsParams) {
 		return this.httpService.createItemsOrder({
 			items: params.items,
 			itemCreationOrderType: 'collectionItem',
-			referencedCollection: params.collectionId,
+			referencedCollection: params.referencedCollection,
 			uid: params.uid,
 		});
 	}

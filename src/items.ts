@@ -1,5 +1,5 @@
 import HandCashHttpService from './api/handcash_http_service';
-import { GetItemsFilter, TransferItemParameters, NewBurnAndCreateItemsOrder } from './types';
+import { GetItemsFilter, TransferItemParameters, CraftItemsParams } from './types';
 
 export default class Items {
 	httpService: HandCashHttpService;
@@ -32,7 +32,7 @@ export default class Items {
 	/**
 	 * Burn and create items order
 	 */
-	async burnAndCreateItems(params: NewBurnAndCreateItemsOrder) {
-		return this.httpService.burnAndCreateItems(params);
+	async burnAndCreateItems(params: CraftItemsParams) {
+		return this.httpService.craftItems(params);
 	}
 }

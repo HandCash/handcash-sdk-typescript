@@ -135,82 +135,6 @@ export type UserBalance = {
 	};
 };
 
-export type ItemAttributeMetadata = {
-	name: string;
-	value: string | number;
-	displayType: 'string' | 'number' | 'date' | 'boostPercentage' | 'boostNumber';
-};
-
-export type MediaDetails = {
-	image?: {
-		url: string;
-		contentType: string;
-		imageHighResUrl?: string;
-	};
-	multimedia?: {
-		url: string;
-		contentType: string;
-		imageHighResUrl?: string;
-	};
-};
-
-export type Royalty = {
-	type: string;
-	percentage: number;
-	destination: string;
-};
-
-export type Action = {
-	name: string;
-	description: string;
-	url: string;
-	enabled: boolean;
-};
-
-export type CreateItemMetadata = {
-	name: string;
-	user?: string;
-	description?: string;
-	rarity?: string;
-	quantity?: number;
-	color?: string;
-	attributes: ItemAttributeMetadata[];
-	mediaDetails: MediaDetails;
-	origin?: string;
-	royalties?: Royalty[];
-	actions?: Action[];
-	groupingValue?: string;
-	externalId?: string;
-};
-
-export type CreateItemsOrderParams = {
-	collectionId: string;
-	items: CreateItemMetadata[];
-	uid?: string;
-};
-
-export type NewBurnAndCreateItemsOrder = {
-	issue?: CreateItemsOrderParams;
-	burn: {
-		origins: string[];
-	};
-};
-
-export type GetItemsFilter = {
-	from?: number;
-	to?: number;
-	collectionId?: string;
-	searchString?: string;
-	groupingValue?: string;
-	fetchAttributes?: boolean;
-	sort?: 'name';
-	order?: 'asc' | 'desc';
-	attributes?: ItemAttributeMetadata[];
-	appId?: string;
-	group?: boolean;
-	externalId?: string;
-};
-
 export type TransferItemParameters = {
 	destinationsWithOrigins: {
 		destination: string;
@@ -218,51 +142,212 @@ export type TransferItemParameters = {
 	}[];
 };
 
-export type CreateCollectionMetadata = {
+export interface ItemAttribute {
 	name: string;
+	value: string;
+	displayType: string;
+}
+
+export interface ItemAction {
+	name: string;
+	description: string;
+	url: string;
+	enabled: boolean;
+}
+
+export interface ItemListing {
+	id: string;
+	status: 'active' | 'sold' | 'canceled';
+	currencyCode: string;
+	price: number;
+	denominatedIn: string;
+	fiatEquivalent: {
+		amount: number;
+		currencyCode: string;
+	};
+	paymentRequestUrl: string;
+	paymentRequestId: string;
+	listedAt: Date;
+}
+
+export interface ItemPriceAlert {
+	amountInUSD: number;
+	groupingValue: string;
+	itemName: string;
+	contentUrl: string;
+	collectionName: string;
+	appName: string;
+	active: boolean;
+}
+
+export interface Collection {
+	id: string;
 	description?: string;
+	app: {
+		id: string;
+		name?: string;
+		iconUrl?: string;
+	};
+	origin?: string;
+	name: string;
+	attributes?: {
+		name: string;
+		displayType: string;
+		possibleValues?: string[] | number[];
+		minValue?: number;
+		maxValue?: number;
+	}[];
+	imageUrl?: string;
+	totalQuantity: number;
+}
+
+export interface Item {
+	id: string;
+	description: string;
+	collection: Collection | { id: string };
+	user: {
+		id: string;
+		handle: string;
+		displayName?: string;
+		avatarUrl?: string;
+	};
+	app: {
+		id: string;
+		name?: string;
+		iconUrl?: string;
+	};
+	origin: string;
+	name: string;
+	groupingValue: string;
+	imageUrl: string;
+	multimediaUrl: string;
+	multimediaType: string;
+	attributes: ItemAttribute[];
+	actions: ItemAction[];
+	isListing: boolean;
+	itemListing: ItemListing | Record<string, never>;
+	count: number;
+	isCurrentUser: boolean;
+	lastSoldPriceInUsd: number;
+	floorPriceInUsd: number;
+	externalId: string;
+	priceAlert?: ItemPriceAlert;
+}
+
+export type ContentType = 'image/png' | 'image/jpg' | 'image/jpeg' | 'image/webp';
+
+export interface ImageMetadata {
+	url: string;
+	contentType: ContentType;
+}
+
+export interface MultimediaMetadata {
+	url: string;
+	contentType: string;
+}
+
+export interface MediaDetails {
+	image: ImageMetadata;
+	multimedia?: MultimediaMetadata;
+}
+
+export interface BaseItemMetadata {
+	description?: string;
+	name: string;
+	groupingValue?: string;
 	mediaDetails: MediaDetails;
-};
+	user?: string; // ObjectId
+}
 
-export type ItemCreationOrderType = 'collectionItem' | 'collection';
+export interface CreateCollectionMetadata extends BaseItemMetadata {
+	totalQuantity?: number;
+}
 
-export type CreateItemsOrder = {
+export interface CreateItemMetadata extends BaseItemMetadata {
+	quantity?: number;
+	attributes?: {
+		name: string;
+		displayType: string;
+		value: string | number;
+	}[];
+	actions?: {
+		name: string;
+		description: string;
+		url: string;
+		enabled?: boolean;
+	}[];
+	externalId?: string;
+}
+
+export type ItemCreationOrderType = 'collection' | 'collectionItem';
+
+export interface ItemsOrder {
 	id: string;
 	type: ItemCreationOrderType;
 	status: 'preparing' | 'pendingPayment' | 'pendingInscriptions' | 'completed';
-	collectionOrdinalId?: string;
-	items: CreateItemMetadata[] | CreateCollectionMetadata[];
-	payment?: {
-		paymentRequestId: string;
-		paymentRequestUrl: string;
-		amountInUSD: number;
-		transactionId: string;
-		isConfirmed: boolean;
-	};
-	pendingInscriptions?: number;
 	error?: string;
 	uid?: string;
-};
+}
 
-export type Item = {
-	id: string;
-	name: string;
-	description?: string;
-	rarity?: string;
-	quantity: number;
-	color?: string;
-	attributes: ItemAttributeMetadata[];
-	mediaDetails: MediaDetails;
-	origin: string;
-	royalties?: Royalty[];
-	actions?: Action[];
-	groupingValue?: string;
-	externalId?: string;
+export interface CreateItemsOrderParams {
+	items: CreateItemMetadata[] | CreateCollectionMetadata[];
+	itemCreationOrderType: ItemCreationOrderType;
+	referencedCollection?: string;
+	uid?: string;
+}
+
+export interface CreateItemsParams {
+	items: CreateItemMetadata[];
+	referencedCollection?: string;
+	uid?: string;
+}
+
+export type SortableFields = 'name' | 'lastSoldPriceInUsd' | 'floorPriceInUsd';
+
+export interface GetItemsFilter {
+	from?: number;
+	to?: number;
 	collectionId?: string;
-};
+	collectionIds?: string[];
+	searchString?: string;
+	groupingValue?: string;
+	fetchAttributes?: boolean;
+	sort?: SortableFields;
+	order?: 'asc' | 'desc';
+	attributes?: ItemAttribute[];
+	appId?: string;
+	group?: boolean;
+	externalId?: string;
+}
 
-export type TransferItemResult = {
-	id: string;
-	status: 'pending' | 'completed' | 'failed';
-	error?: string;
-};
+export interface TransferItem {
+	direction: string;
+	origin: string;
+	participant: {
+		type: string;
+		name: string;
+	};
+}
+
+export interface ItemTransfer {
+	referencedUserId: string;
+	transactionId: string;
+	transferItems: TransferItem[];
+}
+
+export interface CraftItemsParams {
+	burn: {
+		origins: string[];
+	};
+	issue?: {
+		items: CreateItemMetadata[];
+		referencedCollection: string;
+		uid?: string;
+		itemCreationOrderType?: 'collectionItem';
+	};
+}
+
+export interface CraftItemsOrder {
+	itemCreationOrder?: ItemsOrder;
+	itemTransfer: ItemTransfer;
+}

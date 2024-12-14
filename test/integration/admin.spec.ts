@@ -3,7 +3,8 @@ import { authToken, handcashAppId, handcashAppSecret } from '../env';
 import environments from '../../src/environments';
 import HandCashHttpService from '../../src/api/handcash_http_service';
 import Admin from '../../src/admin';
-import { CreateCollectionMetadata, CreateItemMetadata, CreateItemsOrder } from '../../src/types';
+import { CreateCollectionMetadata, CreateItemMetadata, ItemsOrder } from '../../src/types';
+import ItemsWallet from '../../src/items';
 
 const sleep = (ms: number): Promise<void> =>
 	new Promise((resolve) => {
@@ -11,24 +12,34 @@ const sleep = (ms: number): Promise<void> =>
 	});
 
 describe('Admin - integration test', () => {
-	const adminWallet = new Admin(
-		new HandCashHttpService({
-			authToken,
-			baseEndpointHandCash: environments.iae.baseEndpointHandCash,
-			baseEndpointTrustholder: environments.iae.baseEndpointTrustholder,
-			appSecret: handcashAppSecret,
-			appId: handcashAppId,
-		})
-	);
+	const httpsService = new HandCashHttpService({
+		authToken,
+		baseEndpointHandCash: environments.iae.baseEndpointHandCash,
+		baseEndpointTrustholder: environments.iae.baseEndpointTrustholder,
+		appSecret: handcashAppSecret,
+		appId: handcashAppId,
+	});
+	const adminWallet = new Admin(httpsService);
+	const userWallet = new ItemsWallet(httpsService);
 
-	it('should create collection, wait for completion, create items, and verify', async () => {
+	/**
+	 * 
+	 *  ✓ test/integration/admin.spec.ts (1) 9228ms
+
+ 		Test Files  1 passed (1)
+      	Tests  1 passed (1)
+   		Start at  12:32:05
+   		Duration  10.13s (transform 436ms, setup 0ms, collect 122ms, tests 9.23s)
+		12/14/2024 on IAE
+	 */
+	it.skip('should create collection, wait for completion, create items, and verify', async () => {
 		// 1. Create collection with metadata
 		const collectionMetadata: CreateCollectionMetadata = {
 			name: 'Test Collection',
 			description: 'A test collection for integration testing',
 			mediaDetails: {
 				image: {
-					url: 'https://placehold.co/600x400',
+					url: 'https://res.cloudinary.com/hn8pdtayf/image/upload/v1640100510/juy5hd3smy68a0k7ojo1.jpg',
 					contentType: 'image/png',
 				},
 			},
@@ -40,7 +51,7 @@ describe('Admin - integration test', () => {
 		// 2. Wait and check order status
 		let orderComplete = false;
 		let attempts = 0;
-		let order: CreateItemsOrder | null = null;
+		let order: ItemsOrder | null = null;
 
 		while (!orderComplete && attempts < 5) {
 			// eslint-disable-next-line no-await-in-loop
@@ -60,8 +71,8 @@ describe('Admin - integration test', () => {
 
 		// Get collection items to get collection ID
 		const collectionItems = await adminWallet.getOrderItems(collectionOrder.id);
-		expect(collectionItems).toHaveLength(1);
-		const collectionId = collectionItems[0]?.id as string;
+		expect(collectionItems.items).toHaveLength(1);
+		const referencedCollection = collectionItems.items[0]?.id as string;
 
 		// 3. Create items in the collection
 		const itemMetadata: CreateItemMetadata[] = [
@@ -71,7 +82,7 @@ describe('Admin - integration test', () => {
 				quantity: 1,
 				mediaDetails: {
 					image: {
-						url: 'https://placehold.co/400x300',
+						url: 'https://res.cloudinary.com/hn8pdtayf/image/upload/v1640100510/juy5hd3smy68a0k7ojo1.jpg',
 						contentType: 'image/png',
 					},
 				},
@@ -88,7 +99,6 @@ describe('Admin - integration test', () => {
 					},
 				],
 				actions: [],
-				rarity: 'rare',
 			},
 			{
 				name: 'Test Item 2',
@@ -96,7 +106,7 @@ describe('Admin - integration test', () => {
 				quantity: 1,
 				mediaDetails: {
 					image: {
-						url: 'https://placehold.co/400x300',
+						url: 'https://res.cloudinary.com/hn8pdtayf/image/upload/v1640100510/juy5hd3smy68a0k7ojo1.jpg',
 						contentType: 'image/png',
 					},
 				},
@@ -113,14 +123,12 @@ describe('Admin - integration test', () => {
 					},
 				],
 				actions: [],
-				rarity: 'common',
 			},
 		];
 
 		const itemsOrder = await adminWallet.createItemsOrder({
-			collectionId,
+			referencedCollection,
 			items: itemMetadata,
-			uid: 'test-batch-001',
 		});
 		expect(itemsOrder.id).toBeDefined();
 
@@ -146,7 +154,7 @@ describe('Admin - integration test', () => {
 		expect(order?.status).toBe('completed');
 
 		// Get the created items
-		const items = await adminWallet.getOrderItems(itemsOrder.id);
+		const { items } = await adminWallet.getOrderItems(itemsOrder.id);
 		expect(items).toHaveLength(2);
 
 		// Get first item by origin
@@ -154,5 +162,16 @@ describe('Admin - integration test', () => {
 		const itemByOrigin = await adminWallet.getItemByOrigin(firstItemOrigin);
 		expect(itemByOrigin).toBeDefined();
 		expect(itemByOrigin.name).toBe('Test Item 1');
+
+		// transfer
+		const itemTransfer = await userWallet.transferItems({
+			destinationsWithOrigins: [
+				{
+					destination: 'rafa',
+					origins: [firstItemOrigin],
+				},
+			],
+		});
+		expect(itemTransfer).toBeDefined();
 	}, 30000);
 });
