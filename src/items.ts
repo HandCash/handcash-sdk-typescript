@@ -32,7 +32,7 @@ export default class Items {
 	/**
 	 * Burn and create items order
 	 */
-	async burnAndCreateItems(params: CraftItemsParams) {
+	async craftItems(params: CraftItemsParams) {
 		return this.httpService.craftItems(params);
 	}
 }
