@@ -199,7 +199,7 @@ export default class HandCashHttpService {
 	}
 
 	async activateAccessKey(accessPublicKey: string, email: string) {
-		const requestParameters = this.getRequest('POST', '/v1/waas/accessKey', {
+		const requestParameters = this.getRequest('POST', '/v1/waas/account/accessKey', {
 			accessPublicKey,
 			email,
 		});
