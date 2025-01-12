@@ -65,7 +65,7 @@ const requestId = await walletService.requestSignInEmailCode(email);
 const verificationCode = '01234567';
 const keyPair = Crypto.generateAuthenticationKeyPair();
 await walletService.verifyEmailCode(requestId, verificationCode, keyPair.publicKey);
-
+await walletService.activateAccessKey(keyPair.publicKey, email);
 // Store the authentication key in a secure place so the user can access the wallet later
 await storeAuthenticationkey(keyPair.privateKey);
 
