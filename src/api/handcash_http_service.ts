@@ -198,6 +198,14 @@ export default class HandCashHttpService {
 		return HandCashHttpService.handleRequest<DepositInfo>(requestParameters, new Error().stack);
 	}
 
+	async activateAccessKey(accessPublicKey: string, email: string) {
+		const requestParameters = this.getRequest('POST', '/v1/waas/accessKey', {
+			accessPublicKey,
+			email,
+		});
+		return HandCashHttpService.handleRequest<DepositInfo>(requestParameters, new Error().stack);
+	}
+
 	async getAliasAvailability(alias: string) {
 		const requestParameters = this.getRequest('GET', `/v1/waas/account/aliasAvailability/${alias}`);
 		return HandCashHttpService.handleRequest<{ availability: 'AVAILABLE' | 'UNAVAILABLE' }>(

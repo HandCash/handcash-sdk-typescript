@@ -50,6 +50,10 @@ export default class WalletService {
 		return this.httpService.createNewAccount(accessPublicKey, email, alias);
 	}
 
+	async activateAccessKey(accessPublicKey: string, email: string): Promise<DepositInfo> {
+		return this.httpService.activateAccessKey(accessPublicKey, email);
+	}
+
 	async isAliasAvailable(alias: string): Promise<boolean> {
 		const isValidAlias = /^(?=.*[a-zA-Z0-9])[\w\-.]{4,50}$/.test(alias);
 		if (!isValidAlias) {
