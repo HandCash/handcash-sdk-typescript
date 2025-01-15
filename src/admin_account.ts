@@ -1,8 +1,10 @@
 import Wallet from './wallet';
-import HandCashHttpService from './api/handcash_http_service';
 import Items from './items';
+import Admin from './admin';
+import Account from './account';
+import HandCashHttpService from './api/handcash_http_service';
 
-type Params = {
+type AdminAuthParams = {
 	authToken: string;
 	appSecret: string;
 	appId: string;
@@ -10,14 +12,12 @@ type Params = {
 	baseEndpointTrustholder: string;
 };
 
-export default class Account {
-	wallet: Wallet;
+export class AdminAccount extends Account {
+	readonly admin: Admin;
 
-	items: Items;
-
-	constructor({ wallet, items }: { wallet: Wallet; items: Items }) {
-		this.wallet = wallet;
-		this.items = items;
+	constructor({ wallet, items, admin }: { wallet: Wallet; items: Items; admin: Admin }) {
+		super({ wallet, items });
+		this.admin = admin;
 	}
 
 	static fromAuthToken({
@@ -26,7 +26,7 @@ export default class Account {
 		appId,
 		baseEndpointHandCash,
 		baseEndpointTrustholder,
-	}: Params): Account {
+	}: AdminAuthParams): AdminAccount {
 		const httpService = new HandCashHttpService({
 			authToken,
 			baseEndpointHandCash,
@@ -35,9 +35,12 @@ export default class Account {
 			appId,
 		});
 
-		return new Account({
+		return new AdminAccount({
 			wallet: new Wallet(httpService),
 			items: new Items(httpService),
+			admin: new Admin(httpService),
 		});
 	}
 }
+
+export default AdminAccount;
